@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class ConfigManager {
+
     public static String getProperty(String propertyKeyValue) {
         String valueOfProperty = "";
         FileInputStream fis;

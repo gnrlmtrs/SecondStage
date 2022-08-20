@@ -7,9 +7,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import util.Log;
 
 public class DriverSingleton {
-    private static WebDriver driver;
 
-    private DriverSingleton() {}
+    private static WebDriver driver;
 
     public static WebDriver getInstance(String browserName) {
         if (null == driver){

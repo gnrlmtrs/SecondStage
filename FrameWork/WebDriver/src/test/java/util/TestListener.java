@@ -1,6 +1,7 @@
 package util;
 
 import driver.DriverSingleton;
+import jdk.nashorn.internal.runtime.regexp.joni.Config;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -12,13 +13,14 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class TestListener implements ITestListener {
+
     public void onTestFailure(ITestResult iTestResult){
         saveScreenshot();
     }
 
     private void saveScreenshot(){
         File screenCapture = ((TakesScreenshot)DriverSingleton
-                .getInstance())
+                .getInstance(ConfigManager.getProperty("browser.type")))
                 .getScreenshotAs(OutputType.FILE);
         try {
             FileUtils.copyFile(screenCapture, new File(
