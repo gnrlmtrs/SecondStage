@@ -4,26 +4,31 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import util.Log;
 
 public class DriverSingleton {
     private static WebDriver driver;
 
     private DriverSingleton() {}
 
-    public static WebDriver getInstance() {
+    public static WebDriver getInstance(String browserName) {
         if (null == driver){
-            switch (System.getProperty("browser")){
+            switch (browserName){
                 case "firefox": {
                     WebDriverManager.firefoxdriver().setup();
                     driver = new FirefoxDriver();
+                    break;
                 }
-                case "chrome":
-                default: {
+                case "chrome": {
                     WebDriverManager.chromedriver().setup();
                     driver = new ChromeDriver();
+                    break;
+                }
+                default: {
+                    Log.error("Incorrect browser name");
+                    throw new IllegalArgumentException();
                 }
             }
-            driver.manage().window().maximize();
         }
         return driver;
     }
@@ -33,7 +38,9 @@ public class DriverSingleton {
     }
 
     public static void closeDriver() {
-        driver.quit();
-        driver = null;
+        if(driver !=null) {
+            driver.quit();
+            driver = null;
+        }
     }
 }
