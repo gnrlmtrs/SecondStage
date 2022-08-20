@@ -16,5 +16,4 @@ public class UserCreator {
         return new User("maximp.pernachmail.ru", TestDataReader.getTestData(TESTDATA_USER_PASSWORD),
                 TestDataReader.getTestData(TESTDATA_USER_NAME));
     }
-
 }

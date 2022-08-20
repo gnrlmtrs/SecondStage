@@ -7,7 +7,6 @@ import org.openqa.selenium.support.PageFactory;
 
 public class FarfetchCartPage extends AbstractPage {
 
-
     @Override
     public FarfetchCartPage openPage(){
         return this;
@@ -41,8 +40,6 @@ public class FarfetchCartPage extends AbstractPage {
 
     @FindBy(xpath = "//*[@id='bagWrapper']/div/div[1]/article/div[2]/div[4]/div[1]/span")
     private WebElement theNewestSize;
-
-
 
     public String getSneakerNumber(){
         return sneakerNumber.getText();
@@ -78,6 +75,4 @@ public class FarfetchCartPage extends AbstractPage {
         waitUntilVisibilityOf(theNewestSize);
         return theNewestSize.getText();
     }
-
-
 }

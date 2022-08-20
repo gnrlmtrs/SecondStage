@@ -10,6 +10,7 @@ import util.TestListener;
 
 @Listeners(TestListener.class)
 public class CommonConditions {
+
     protected FarfetchMainPage mainPage;
     protected FarfetchSearchResultPage searchResultPage;
     protected FarfetchCartPage cartPage;
@@ -21,8 +22,6 @@ public class CommonConditions {
     public void init(){
         driver = DriverSingleton.getInstance();
     }
-
-
 
     @AfterMethod(alwaysRun = true)
     public void dispose(){

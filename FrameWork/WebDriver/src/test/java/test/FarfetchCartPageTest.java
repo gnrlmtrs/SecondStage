@@ -39,7 +39,7 @@ public class FarfetchCartPageTest extends CommonConditions{
         Assertions.assertEquals("Корзина пуста", cartPage.checkedOnEmptyBasket());
     }
 
-        @Test
+    @Test
     public void changeSizeOfSneakers() throws InterruptedException {
         User testUser = UserCreator.withCredentialsFromProperty();
         Sneakers testSneakers = SneakersCreator.withCredentialsFromProperty();
@@ -67,6 +67,4 @@ public class FarfetchCartPageTest extends CommonConditions{
 
         Assertions.assertEquals(testSneakers.getSneakersName(), cartPage.getSneakerNumber());
     }
-
-
 }

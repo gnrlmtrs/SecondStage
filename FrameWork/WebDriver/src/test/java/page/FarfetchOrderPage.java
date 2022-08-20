@@ -30,13 +30,8 @@ public class FarfetchOrderPage extends  AbstractPage{
         return this;
     }
 
-
-
     public FarfetchOrderPage(WebDriver driver){
         super(driver);
         PageFactory.initElements(this.driver, this);
     }
-
-
-
 }

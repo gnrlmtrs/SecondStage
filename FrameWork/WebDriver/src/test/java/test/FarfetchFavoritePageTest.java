@@ -39,6 +39,4 @@ public class FarfetchFavoritePageTest extends CommonConditions{
         Assertions.assertEquals("Здесь будут собраны товары, которые вы добавите в Избранное.",
                 favouritePage.favouriteIsEmpty());
     }
-
-
 }

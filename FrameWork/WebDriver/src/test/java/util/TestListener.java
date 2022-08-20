@@ -6,7 +6,6 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
-
 import java.io.File;
 import java.io.IOException;
 import java.time.ZonedDateTime;

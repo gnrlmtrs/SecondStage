@@ -7,7 +7,6 @@ import org.openqa.selenium.support.PageFactory;
 
 public class FarfetchSearchResultPage extends AbstractPage{
 
-
     @FindBy(xpath = "//button[@data-tstid='addToWishlist']")
     private WebElement addToFavouriteButton;
 

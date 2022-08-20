@@ -1,4 +1,5 @@
 package page;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -30,9 +31,6 @@ public class FarfetchMainPage extends AbstractPage{
     @FindBy(xpath = "//*[@id='tabs--6--panel--0']/form/div[1]")
     private WebElement wrongMessage;
 
-//    @FindBy(xpath = "//a[data-test='Go_SignInOrRegister']")
-//    private WebElement userName;
-
     @FindBy(id = "ff-details-account")
     private WebElement userName;
 
@@ -42,8 +40,6 @@ public class FarfetchMainPage extends AbstractPage{
         driver.navigate().to(BASE_URL);
         return this;
     }
-
-
 
     public FarfetchMainPage(WebDriver driver){
         super(driver);
@@ -63,7 +59,6 @@ public class FarfetchMainPage extends AbstractPage{
         return userAccount.getText();
     }
 
-
     public FarfetchSearchResultPage searchGoods(String goodModel) throws InterruptedException {
         Thread.sleep(5000);
 
@@ -75,7 +70,4 @@ public class FarfetchMainPage extends AbstractPage{
 
         return new FarfetchSearchResultPage(driver);
     }
-
-
-
 }

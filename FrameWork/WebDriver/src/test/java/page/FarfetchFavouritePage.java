@@ -55,5 +55,4 @@ public class FarfetchFavouritePage extends AbstractPage{
         goToCartButton.click();
         return new FarfetchCartPage(driver);
     }
-
 }

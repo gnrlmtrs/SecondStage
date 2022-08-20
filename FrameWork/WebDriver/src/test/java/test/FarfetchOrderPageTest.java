@@ -8,10 +8,7 @@ import page.FarfetchMainPage;
 import service.SneakersCreator;
 import service.UserCreator;
 
-
 public class FarfetchOrderPageTest extends CommonConditions{
-
-
 
     @Test
     public void incorrectInputPhoneNumber() throws InterruptedException {
@@ -27,5 +24,4 @@ public class FarfetchOrderPageTest extends CommonConditions{
 
         Assertions.assertEquals("Пожалуйста, введите корректный номер телефона", orderPage.getWrongNumber());
     }
-
 }

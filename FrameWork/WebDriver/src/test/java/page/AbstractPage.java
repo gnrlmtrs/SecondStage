@@ -16,7 +16,6 @@ public abstract class AbstractPage {
     protected final int WAIT_TIMEOUT_SECONDS = 100;
     protected final String BASE_URL = "https://www.farfetch.com/by/shopping/men/items.aspx";
 
-
     @FindBy(xpath = "//*[@data-test='go-to-login-desktop']")
     private WebElement logInButton;
 
@@ -49,15 +48,10 @@ public abstract class AbstractPage {
         return new FarfetchMainPage(driver);
     }
 
-
     public WebElement waitUntilPresenceOfElement(By location){
         return new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
                 .until(ExpectedConditions.presenceOfElementLocated(location));
     }
-
-
-
-
 
     public WebElement waitUntilVisibilityOf(WebElement element){
         return new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
@@ -73,7 +67,4 @@ public abstract class AbstractPage {
         return new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
                 .until(ExpectedConditions.elementToBeClickable(element));
     }
-
-
-
 }

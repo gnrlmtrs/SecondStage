@@ -8,7 +8,6 @@ import service.UserCreator;
 
 public class FarfetchMainPageTests extends CommonConditions{
 
-
     @Test
     public void logInAccountTest() throws InterruptedException {
         User testUser = UserCreator.withCredentialsFromProperty();
@@ -17,7 +16,6 @@ public class FarfetchMainPageTests extends CommonConditions{
                     .logInAccount(testUser);
         Assertions.assertEquals(testUser.getUsername(), mainPage.getUserName());
     }
-
 
     @Test
     public void wrongAccountDataTest() throws InterruptedException {
