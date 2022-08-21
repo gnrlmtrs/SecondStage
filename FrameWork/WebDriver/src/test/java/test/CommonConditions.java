@@ -1,12 +1,13 @@
 package test;
 
 import driver.DriverSingleton;
-import org.openqa.selenium.Cookie;
+import model.User;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Listeners;
-import page.*;
+import service.UserCreator;
 import util.ConfigManager;
 import util.TestListener;
 
@@ -14,6 +15,8 @@ import util.TestListener;
 public class CommonConditions {
 
     protected WebDriver driver;
+    protected User testUser;
+    protected User userWithWrongCredentials;
 
     @BeforeMethod
     public void init(){
@@ -24,5 +27,11 @@ public class CommonConditions {
     @AfterMethod(alwaysRun = true)
     public void dispose(){
         DriverSingleton.closeDriver();
+    }
+
+    @BeforeSuite
+    public void preparingData(){
+        testUser = UserCreator.withCredentialsFromProperty();
+        userWithWrongCredentials = UserCreator.withWrongCredentialsFromProperty();
     }
 }
