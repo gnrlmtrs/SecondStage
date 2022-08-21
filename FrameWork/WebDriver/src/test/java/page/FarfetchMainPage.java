@@ -1,23 +1,30 @@
 package page;
 
+import elements.Button;
+import elements.ModalWindow;
+import elements.Text;
+import model.User;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import util.Log;
 
 public class FarfetchMainPage extends AbstractPage{
 
-    @FindBy(xpath = "//*[@data-test='go-to-login-desktop']")
-    private WebElement logInButton;
+    WebDriver driver;
+    private static Text title = new Text(By.xpath("//div[contains(@class, '')]/a[contains(@title, 'homepage')]"), "Title From Main Page");
+    private static Button logInButton = new Button(By.xpath("//button[@data-test='go-to-login-desktop'][contains(@title, 'Login')]"), "LogIn button");
+    private static Text loginField = new Text(By.xpath("//input[@name='email' and @type='email'][contains(@data-testid, 'email-input')]"), "Email Field");
+    private static Text passwordField = new Text(By.xpath("//input[@name='password']"), "Password field");
+    private static Text userName = new Text(By.xpath("//button[contains(@aria-label,'account')]//span[not (@class)]"), "Username");
+    private static ModalWindow loginModalWindow = new ModalWindow(By.xpath("//div[contains(@data-component, 'Modal')][contains(@aria-label, 'LoginModal')]"), "LogIn ModalWindow");
+    private static Button submitDataForLoginButton = new Button(By.xpath("//button[contains(@data-testid, 'login-sign-in-button')]"), "Submit login button");
 
-    @FindBy(xpath = "//input[@name='email']")
-    private WebElement loginField;
-
-    @FindBy(xpath = "//input[@name='password']")
-    private WebElement passwordField;
-
-    @FindBy(xpath = "//button[@data-tstid='slice-login-sign-in-button']")
-    private WebElement submitDataForLoginButton;
+    public FarfetchMainPage(WebDriver driver){
+        super(title, "Title From Main Page");
+        this.driver = driver;
+    }
 
     @FindBy(xpath = "//input[@data-tstid='Go_Search']")
     private WebElement searchField;
@@ -31,43 +38,44 @@ public class FarfetchMainPage extends AbstractPage{
     @FindBy(xpath = "//*[@id='tabs--6--panel--0']/form/div[1]")
     private WebElement wrongMessage;
 
-    @FindBy(id = "ff-details-account")
-    private WebElement userName;
-
-
-    @Override
-    public FarfetchMainPage openPage(){
-        driver.navigate().to(BASE_URL);
-        return this;
+    public void clickLoginButton(){
+        logInButton.waitForClickable();
+        logInButton.click();
     }
 
-    public FarfetchMainPage(WebDriver driver){
-        super(driver);
-        PageFactory.initElements(this.driver, this);
+    public void enterUserCredentials(User user){
+        if(loginModalWindow.isDisplayed()){
+            if(loginField.isDisplayed()) {
+                loginField.sendText(user.getEmail());
+                passwordField.sendText(user.getPassword());
+            }
+        }
+        else{
+            Log.error("Modal window is not displayed");
+        }
     }
 
-    public String getWrongMessageText() throws InterruptedException {
-        Thread.sleep(2000);
+    public void clickSubmitLogInButton(){
+        submitDataForLoginButton.click();
+    }
+
+    public String getWrongMessageText(){
         return wrongMessage.getText();
     }
 
-    public String  getUserName() throws InterruptedException {
-        Thread.sleep(10000);
-        waitUntilElementIsClickable(userName);
-        userName.click();
-        waitUntilVisibilityOf(userAccount);
-        return userAccount.getText();
+    public String getUserName(){
+        return userName.getTextFromElement();
     }
 
-    public FarfetchSearchResultPage searchGoods(String goodModel) throws InterruptedException {
-        Thread.sleep(5000);
-
-        waitUntilVisibilityOf(searchField);
-        searchField.sendKeys(goodModel);
-
-        waitUntilElementIsClickable(searchButton);
-        searchButton.click();
-
-        return new FarfetchSearchResultPage(driver);
-    }
+//    public FarfetchSearchResultPage searchGoods(String goodModel) throws InterruptedException {
+//        Thread.sleep(5000);
+//
+//        waitUntilVisibilityOf(searchField);
+//        searchField.sendKeys(goodModel);
+//
+//        waitUntilElementIsClickable(searchButton);
+//        searchButton.click();
+//
+//        return new FarfetchSearchResultPage(driver);
+//    }
 }

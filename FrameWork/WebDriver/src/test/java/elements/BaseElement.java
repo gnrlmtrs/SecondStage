@@ -43,6 +43,10 @@ public abstract class BaseElement {
         return webElement;
     }
 
+    public void sendText(String text){
+        findElement().sendKeys(text);
+    }
+
     public String getAttribute(String attribute){
         Log.info("Getting attribute of: " + name);
         return findElement().getAttribute(attribute);
@@ -69,9 +73,14 @@ public abstract class BaseElement {
         return Waiter.getDriverWait().until(ExpectedConditions.visibilityOf(findElement())).getText();
     }
 
+    public void waitForVisibility(){
+        Log.info("Wait until element is visible: " + name);
+        Waiter.getDriverWait().until(ExpectedConditions.visibilityOf(findElement()));
+    }
+
     public void waitForClickable(){
         Log.info("Wait until element is clickable: " + name);
-        Waiter.getDriverWait().until(ExpectedConditions.elementToBeClickable(webElement));
+        Waiter.getDriverWait(). until(ExpectedConditions.elementToBeClickable(findElement()));
     }
 
     public void click(){
