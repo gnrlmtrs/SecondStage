@@ -2,9 +2,12 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="smoke" verbose="1">
+    <listeners>
+        <listener class-name="util.TestListener"/>
+    </listeners>
     <test name="smoke">
         <classes>
-            <class name="test.FarfetchCartPageTest"/>
+            <class name="test.FarfetchMainPageTests"/>
         </classes>
     </test>
 </suite>

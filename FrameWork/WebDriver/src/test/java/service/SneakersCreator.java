@@ -1,6 +1,7 @@
 package service;
 
 import model.Sneakers;
+import util.TestDataReader;
 
 public class SneakersCreator {
     public static final String TESTDATA_SNEAKERS_MODEL = "testdata.sneakers.model";

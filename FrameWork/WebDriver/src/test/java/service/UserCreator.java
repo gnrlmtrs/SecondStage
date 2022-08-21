@@ -1,6 +1,7 @@
 package service;
 
 import model.User;
+import util.TestDataReader;
 
 public class UserCreator {
     public static final String TESTDATA_USER_EMAIL = "testdata.user.email";

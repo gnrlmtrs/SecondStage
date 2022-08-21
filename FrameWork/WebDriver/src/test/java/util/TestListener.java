@@ -1,7 +1,6 @@
 package util;
 
 import driver.DriverSingleton;
-import jdk.nashorn.internal.runtime.regexp.joni.Config;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -16,6 +15,12 @@ public class TestListener implements ITestListener {
 
     public void onTestFailure(ITestResult iTestResult){
         saveScreenshot();
+        Log.error("Test is failed: " + iTestResult.getName());
+    }
+
+    @Override
+    public void onTestSuccess(ITestResult iTestResult) {
+        Log.info("Test successfully passed: " + iTestResult.getName());
     }
 
     private void saveScreenshot(){
@@ -27,6 +32,7 @@ public class TestListener implements ITestListener {
                     ".//target/screenshots/"
                             + getCurrentTimeAsString() +
                             ".png"));
+            Log.info(screenCapture.getName() + " is saved");
         } catch (IOException e) {
         }
     }
