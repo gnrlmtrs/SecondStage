@@ -12,7 +12,7 @@ public class ConfigManager {
         Properties property = new Properties();
 
         try{
-            fis = new FileInputStream("src/test/resources/dev.properties");
+            fis = new FileInputStream("src/test/resources/config.properties");
             property.load(fis);
 
             valueOfProperty = property.getProperty(propertyKeyValue);
