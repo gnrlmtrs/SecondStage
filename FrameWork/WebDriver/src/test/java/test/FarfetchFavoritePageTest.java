@@ -2,7 +2,6 @@
 //
 //import model.Sneakers;
 //import model.User;
-//import org.junit.jupiter.api.Assertions;
 //import org.testng.annotations.Test;
 //import page.FarfetchMainPage;
 //import service.SneakersCreator;

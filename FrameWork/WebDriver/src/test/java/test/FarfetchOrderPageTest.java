@@ -2,16 +2,17 @@
 //
 //import model.Sneakers;
 //import model.User;
-//import org.junit.jupiter.api.Assertions;
+//import org.testng.Assert;
 //import org.testng.annotations.Test;
 //import page.FarfetchMainPage;
 //import service.SneakersCreator;
 //import service.UserCreator;
 //
+//@Deprecated
 //public class FarfetchOrderPageTest extends CommonConditions{
 //
 //    @Test
-//    public void incorrectInputPhoneNumber() throws InterruptedException {
+//    public void incorrectInputPhoneNumber(){
 //        User testUser = UserCreator.withCredentialsFromProperty();
 //        Sneakers testSneakers = SneakersCreator.withCredentialsFromProperty();
 //        mainPage = new FarfetchMainPage(driver)
@@ -22,6 +23,6 @@
 //        cartPage = searchResultPage.goToCart();
 //        orderPage = cartPage.goToOrderPage();
 //
-//        Assertions.assertEquals("Пожалуйста, введите корректный номер телефона", orderPage.getWrongNumber());
+//        Assert.assertEquals("Пожалуйста, введите корректный номер телефона", orderPage.getWrongNumber());
 //    }
 //}
