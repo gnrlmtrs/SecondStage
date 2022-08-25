@@ -7,19 +7,16 @@ import lombok.*;
 @NoArgsConstructor
 public class Sneakers {
 
-    public String model;
-    public String name;
-    public String size;
+    private String model;
+    private String name;
+    private String size;
 
-    public String getSneakersModel() {
-        return model;
-    }
-
-    public String getSneakersSize() {
-        return size;
-    }
-
-    public String getSneakersName() {
-        return name;
+    @Override
+    public String toString() {
+        return "Sneakers{" +
+                "model='" + model + '\'' +
+                ", name='" + name + '\'' +
+                ", size='" + size + '\'' +
+                '}';
     }
 }
