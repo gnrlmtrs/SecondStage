@@ -11,7 +11,7 @@ public class ConfigManager {
         FileInputStream fis;
         Properties property = new Properties();
 
-        try{
+        try {
             fis = new FileInputStream("src/test/resources/configuration/config.properties");
             property.load(fis);
 
