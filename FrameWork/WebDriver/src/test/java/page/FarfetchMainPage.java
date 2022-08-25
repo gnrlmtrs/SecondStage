@@ -6,8 +6,6 @@ import elements.Text;
 import model.User;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import util.Log;
 
 public class FarfetchMainPage extends AbstractPage{
@@ -20,23 +18,14 @@ public class FarfetchMainPage extends AbstractPage{
     private static Text userName = new Text(By.xpath("//button[contains(@aria-label,'account')]//span[not (@class)]"), "Username");
     private static ModalWindow loginModalWindow = new ModalWindow(By.xpath("//div[contains(@data-component, 'Modal')][contains(@aria-label, 'LoginModal')]"), "LogIn ModalWindow");
     private static Button submitDataForLoginButton = new Button(By.xpath("//button[contains(@data-testid, 'login-sign-in-button')]"), "Submit login button");
+    private static Text searchField = new Text(By.xpath("//input[@id='search']"), "Search field");
+    private static Text incorrectEmailOrPasswordError = new Text(By.xpath("//div[contains(@data-component, 'AlertError')]//p"), "Incorrect data error");
+    private static Button searchButton = new Button(By.xpath("//form//button[contains(@aria-label, 'Search')]"), "Search button");
 
     public FarfetchMainPage(WebDriver driver){
         super(title, "Title From Main Page");
         this.driver = driver;
     }
-
-    @FindBy(xpath = "//input[@data-tstid='Go_Search']")
-    private WebElement searchField;
-
-    @FindBy(xpath = "//button[@data-tags='gtm_19']")
-    private WebElement searchButton;
-
-    @FindBy(xpath = "//*[@id='ff-drawer-account']/div/div/div[1]/ul/h2")
-    private WebElement userAccount;
-
-    @FindBy(xpath = "//*[@id='tabs--6--panel--0']/form/div[1]")
-    private WebElement wrongMessage;
 
     public void clickLoginButton(){
         logInButton.waitForClickable();
@@ -60,22 +49,24 @@ public class FarfetchMainPage extends AbstractPage{
     }
 
     public String getWrongMessageText(){
-        return wrongMessage.getText();
+        try {
+            return incorrectEmailOrPasswordError.getTextFromElement();
+        }
+        catch(Exception ex){
+            Log.error("Username and password are correct.");
+            return null;
+        }
     }
 
     public String getUserName(){
         return userName.getTextFromElement();
     }
 
-//    public FarfetchSearchResultPage searchGoods(String goodModel) throws InterruptedException {
-//        Thread.sleep(5000);
-//
-//        waitUntilVisibilityOf(searchField);
-//        searchField.sendKeys(goodModel);
-//
-//        waitUntilElementIsClickable(searchButton);
-//        searchButton.click();
-//
-//        return new FarfetchSearchResultPage(driver);
-//    }
+    public void enterDataIntoSearchField(String goodModel){
+        searchField.sendText(goodModel);
+    }
+
+    public void clickSearchButton(){
+        searchButton.click();
+    }
 }
