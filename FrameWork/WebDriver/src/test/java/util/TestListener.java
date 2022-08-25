@@ -34,6 +34,7 @@ public class TestListener implements ITestListener {
                             ".png"));
             Log.info(screenCapture.getName() + " is saved");
         } catch (IOException e) {
+            Log.error(e.getMessage());
         }
     }
 
