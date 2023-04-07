@@ -7,7 +7,7 @@
     </listeners>
     <test name="smoke">
         <classes>
-            <class name="test.FarfetchMainPageTests"/>
+            <class name="test.FarfetchSearchPageTest"/>
         </classes>
     </test>
 </suite>

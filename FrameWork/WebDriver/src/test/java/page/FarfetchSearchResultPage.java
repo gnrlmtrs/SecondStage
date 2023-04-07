@@ -9,7 +9,7 @@ import org.openqa.selenium.support.FindBy;
 public class FarfetchSearchResultPage extends AbstractPage{
 
     private WebDriver driver;
-    private static final Text uniqueElement = new Text(By.xpath("//div[contains(@data-test, 'search_panel')]"), "Unique element from Search Result page");
+    private static final Text uniqueElement = new Text(By.xpath("//main[@id='content']"), "Unique element from Search Result page");
     private static Text sneakersModel = new Text(By.xpath("//h1/a[contains(@class, 'Heading')]"), "Sneakers model");
 
     @Deprecated

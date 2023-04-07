@@ -19,7 +19,7 @@ public class DriverSingleton {
                     break;
                 }
                 case "chrome": {
-                    WebDriverManager.chromedriver().version("104").setup();
+                    WebDriverManager.chromedriver().version("111").setup();
                     driver = new ChromeDriver();
                     break;
                 }
