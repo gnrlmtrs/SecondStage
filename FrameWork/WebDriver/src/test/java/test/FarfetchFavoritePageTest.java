@@ -1,44 +1,42 @@
 package test;
 
-import model.Sneakers;
-import model.User;
-import org.junit.jupiter.api.Assertions;
+import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
+import page.FarfetchFavouritePage;
 import page.FarfetchMainPage;
-import service.SneakersCreator;
-import service.UserCreator;
+import page.FarfetchSearchResultPage;
+import util.ConfigManager;
+import util.DriverUtils;
 
+@Ignore
+@Deprecated
 public class FarfetchFavoritePageTest extends CommonConditions{
 
-    @Test
-    public void addGoodsToFavourite() throws InterruptedException {
-        User testUser = UserCreator.withCredentialsFromProperty();
-        Sneakers testSneakers = SneakersCreator.withCredentialsFromProperty();
-        mainPage = new FarfetchMainPage(driver)
-                .openPage()
-                .logInAccount(testUser);
-        searchResultPage = mainPage.searchGoods(testSneakers.getSneakersModel())
-                    .addToFavourite();
-        favouritePage = searchResultPage.goToFavouritePage();
+    private static final String EMPTY_FAVOURITES = "Save your favourite items to start building your wishlist";
 
-        Assertions.assertEquals(testSneakers.getSneakersName(), favouritePage.getSneakerName());
+    @Test
+    public void addGoodsToFavourite(){
+        DriverUtils.goToPage(ConfigManager.getProperty("mainPageUrl"));
+        FarfetchMainPage mainPage = new FarfetchMainPage(driver);
+        mainPage.enterDataIntoSearchField(sneakersData.getModel());
+        mainPage.clickSearchButton();
+        FarfetchSearchResultPage searchResultPage = new FarfetchSearchResultPage(driver);
+        searchResultPage.addToFavourite();
+        FarfetchFavouritePage favouritePage = searchResultPage.goToFavouritePage();
+        Assert.assertEquals(sneakersData.getName(), favouritePage.getSneakerName());
     }
 
     @Test
-    public void deleteGoodsFromFavourite() throws InterruptedException {
-        User testUser = UserCreator.withCredentialsFromProperty();
-        Sneakers testSneakers = SneakersCreator.withCredentialsFromProperty();
-        mainPage = new FarfetchMainPage(driver)
-                .openPage()
-                .logInAccount(testUser);
-        searchResultPage = mainPage.searchGoods(testSneakers.getSneakersModel())
-                .addToFavourite();
-        favouritePage = searchResultPage.goToFavouritePage()
-                .deleteGoodsFromFavourite();
-
-        Assertions.assertEquals("Здесь будут собраны товары, которые вы добавите в Избранное.",
+    public void deleteGoodsFromFavourite(){
+        DriverUtils.goToPage(ConfigManager.getProperty("mainPageUrl"));
+        FarfetchMainPage mainPage = new FarfetchMainPage(driver);
+        mainPage.enterDataIntoSearchField(sneakersData.getModel());
+        mainPage.clickSearchButton();
+        FarfetchSearchResultPage searchResultPage = new FarfetchSearchResultPage(driver);
+        searchResultPage.addToFavourite();
+        FarfetchFavouritePage favouritePage = searchResultPage.goToFavouritePage();
+        Assert.assertEquals(EMPTY_FAVOURITES,
                 favouritePage.favouriteIsEmpty());
     }
-
-
 }

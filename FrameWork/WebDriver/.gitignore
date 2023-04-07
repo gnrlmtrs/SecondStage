@@ -5,3 +5,5 @@ target
 .idea
 /**/out
 .iml
+.allure
+/allure-results/

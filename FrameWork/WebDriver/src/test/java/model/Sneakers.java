@@ -1,28 +1,22 @@
 package model;
 
+import lombok.*;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Sneakers {
 
-    public String model;
-    public String name;
-    public String size;
+    private String model;
+    private String name;
+    private String size;
 
-    public Sneakers(String model, String name, String size){
-
-        this.model = model;
-        this.name = name;
-        this.size = size;
+    @Override
+    public String toString() {
+        return "Sneakers{" +
+                "model='" + model + '\'' +
+                ", name='" + name + '\'' +
+                ", size='" + size + '\'' +
+                '}';
     }
-
-    public String getSneakersModel() {
-        return model;
-    }
-
-    public String getSneakersSize() {
-        return size;
-    }
-
-    public String getSneakersName() {
-        return name;
-    }
-
 }

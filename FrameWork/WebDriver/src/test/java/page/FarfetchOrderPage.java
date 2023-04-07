@@ -5,7 +5,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class FarfetchOrderPage extends  AbstractPage{
+@Deprecated
+public class FarfetchOrderPage extends AbstractPage{
+
+    private WebDriver driver;
 
     @FindBy(xpath = "//*[@id='Phone']")
     private WebElement inputPhone;
@@ -17,26 +20,13 @@ public class FarfetchOrderPage extends  AbstractPage{
     private WebElement wrongMessage;
 
     public String getWrongNumber(){
-        waitUntilVisibilityOf(inputPhone);
         inputPhone.sendKeys("1");
-        waitUntilVisibilityOf(inputPostalCode);
         inputPostalCode.sendKeys("225792");
-        waitUntilVisibilityOf(wrongMessage);
         return wrongMessage.getText();
     }
 
-    @Override
-    public FarfetchOrderPage openPage(){
-        return this;
-    }
-
-
-
     public FarfetchOrderPage(WebDriver driver){
-        super(driver);
+        super();
         PageFactory.initElements(this.driver, this);
     }
-
-
-
 }

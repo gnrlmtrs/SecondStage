@@ -1,87 +1,76 @@
 package page;
 
+import elements.Text;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 public class FarfetchSearchResultPage extends AbstractPage{
 
+    private WebDriver driver;
+    private static final Text uniqueElement = new Text(By.xpath("//main[@id='content']"), "Unique element from Search Result page");
+    private static Text sneakersModel = new Text(By.xpath("//h1/a[contains(@class, 'Heading')]"), "Sneakers model");
 
+    @Deprecated
     @FindBy(xpath = "//button[@data-tstid='addToWishlist']")
     private WebElement addToFavouriteButton;
 
+    @Deprecated
     @FindBy(xpath = "//a[@data-tstid='Go_Wishlist']")
     private WebElement goToFavouriteButton;
 
+    @Deprecated
     @FindBy(xpath = "//a[@data-tstid='cardInfo-title']")
     private WebElement sneakersName;
 
+    @Deprecated
     @FindBy(xpath = "//div[@id='sizesDropdownTrigger']")
     private WebElement sizeMenu;
 
+    @Deprecated
     @FindBy(xpath = "//div[@data-value='20']")
     private WebElement chooseSize;
 
+    @Deprecated
     @FindBy(xpath = "//button[@data-tstid='addToBag']")
     private WebElement addToBag;
 
+    @Deprecated
     @FindBy(xpath = "//a[@data-tstid='Go_Bag']")
     private WebElement goToBag;
 
-    @Override
-    public FarfetchSearchResultPage openPage(){
-        return this;
-    }
-
     public FarfetchSearchResultPage(WebDriver driver){
-        super(driver);
-        PageFactory.initElements(driver, this);
+        super(uniqueElement, "Title From Main Page");
+        this.driver = driver;
     }
 
-    public String getSneakersName() throws InterruptedException {
-        Thread.sleep(3000);
-        return sneakersName.getText();
+    public String getSneakersName(){
+        return sneakersModel.getTextFromElement();
     }
 
-    public FarfetchSearchResultPage addSneakersToCart() throws InterruptedException {
-        waitUntilVisibilityOf(sizeMenu);
+    @Deprecated
+    public FarfetchSearchResultPage addSneakersToCart(){
         sizeMenu.click();
-
-        waitUntilVisibilityOf(chooseSize);
         chooseSize.click();
-
-        Thread.sleep(3000);
-
-        waitUntilVisibilityOf(addToBag);
         addToBag.click();
-
         return this;
     }
 
-    public FarfetchSearchResultPage addToFavourite() throws InterruptedException {
-        waitUntilVisibilityOf(sizeMenu);
+    @Deprecated
+    public FarfetchSearchResultPage addToFavourite(){
         sizeMenu.click();
-
-        waitUntilVisibilityOf(chooseSize);
         chooseSize.click();
-
-        Thread.sleep(3000);
-
-        waitUntilVisibilityOf(addToFavouriteButton);
         addToFavouriteButton.click();
         return this;
     }
-
-    public FarfetchFavouritePage goToFavouritePage() throws InterruptedException {
-        Thread.sleep(3000);
-        waitUntilVisibilityOf(goToFavouriteButton);
+    @Deprecated
+    public FarfetchFavouritePage goToFavouritePage(){
         goToFavouriteButton.click();
         return new FarfetchFavouritePage(driver);
     }
-
+    @Deprecated
     public FarfetchCartPage goToCart(){
-        waitUntilElementIsClickable(goToBag);
         goToBag.click();
         return new FarfetchCartPage(driver);
     }

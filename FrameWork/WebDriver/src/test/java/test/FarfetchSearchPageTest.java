@@ -1,24 +1,24 @@
 package test;
 
-import model.Sneakers;
-import model.User;
-import org.junit.jupiter.api.Assertions;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import page.FarfetchMainPage;
-import service.SneakersCreator;
-import service.UserCreator;
+import page.FarfetchSearchResultPage;
+import util.ConfigManager;
+import util.DriverUtils;
 
 public class FarfetchSearchPageTest extends CommonConditions {
 
     @Test
-    public void searchGoodsTest() throws InterruptedException {
-        User testUser = UserCreator.withCredentialsFromProperty();
-        Sneakers testSneakers = SneakersCreator.withCredentialsFromProperty();
-        mainPage = new FarfetchMainPage(driver)
-                .openPage()
-                .logInAccount(testUser);
-        searchResultPage = mainPage.searchGoods(testSneakers.getSneakersModel());
+    public void searchGoodsTest(){
+        DriverUtils.goToPage(ConfigManager.getProperty("mainPageUrl"));
+        FarfetchMainPage mainPage = new FarfetchMainPage(driver);
+            Assert.assertTrue(mainPage.pageIsDisplayed(), "Main page is not shown");
+            mainPage.enterDataIntoSearchField(sneakersData.getModel());
+            mainPage.clickSearchButton();
 
-        Assertions.assertEquals(testSneakers.getSneakersName(), searchResultPage.getSneakersName());
+        FarfetchSearchResultPage farfetchSearchResultPage = new FarfetchSearchResultPage(driver);
+            Assert.assertTrue(farfetchSearchResultPage.pageIsDisplayed(), "Search result page is not shown");
+            Assert.assertEquals(farfetchSearchResultPage.getSneakersName(), sneakersData.getName(), "Name of sneakers are not equals");
     }
 }

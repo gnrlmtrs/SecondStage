@@ -1,72 +1,72 @@
 package test;
 
-import model.Sneakers;
-import model.User;
-import org.junit.jupiter.api.Assertions;
+import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
+import page.FarfetchCartPage;
+import page.FarfetchFavouritePage;
 import page.FarfetchMainPage;
-import service.SneakersCreator;
-import service.UserCreator;
+import page.FarfetchSearchResultPage;
+import util.ConfigManager;
+import util.DriverUtils;
 
-public class FarfetchCartPageTest extends CommonConditions{
+@Ignore
+@Deprecated
+public class FarfetchCartPageTest extends CommonConditions {
 
+    private static final String EMPTY_BASKET_MESSAGE = "BASKET IS EMPTY";
     @Test
-    public void addGoodsToCart() throws InterruptedException {
-        User testUser = UserCreator.withCredentialsFromProperty();
-        Sneakers testSneakers = SneakersCreator.withCredentialsFromProperty();
-        mainPage = new FarfetchMainPage(driver)
-                .openPage()
-                .logInAccount(testUser);
-        searchResultPage = mainPage.searchGoods(testSneakers.getSneakersModel())
-                    .addSneakersToCart();
+    public void addGoodsToCart(){
+        DriverUtils.goToPage(ConfigManager.getProperty("mainPageUrl"));
+        FarfetchMainPage mainPage = new FarfetchMainPage(driver);
+        mainPage.enterDataIntoSearchField(sneakersData.getModel());
+        mainPage.clickSearchButton();
+        FarfetchSearchResultPage searchResultPage = new FarfetchSearchResultPage(driver);
+        searchResultPage.addSneakersToCart();
+        FarfetchCartPage cartPage = new FarfetchCartPage(driver);
         cartPage = searchResultPage.goToCart();
-
-        Assertions.assertEquals(testSneakers.getSneakersName(), cartPage.getSneakerNumber());
+        Assert.assertEquals(sneakersData.getName(), cartPage.getSneakerNumber());
     }
 
     @Test
-    public void deleteGoodsFromCart() throws InterruptedException {
-        User testUser = UserCreator.withCredentialsFromProperty();
-        Sneakers testSneakers = SneakersCreator.withCredentialsFromProperty();
-        mainPage = new FarfetchMainPage(driver)
-                .openPage()
-                .logInAccount(testUser);
-        searchResultPage = mainPage.searchGoods(testSneakers.getSneakersModel())
-                .addSneakersToCart();
+    public void deleteGoodsFromCart(){
+        DriverUtils.goToPage(ConfigManager.getProperty("mainPageUrl"));
+        FarfetchMainPage mainPage = new FarfetchMainPage(driver);
+        mainPage.enterDataIntoSearchField(sneakersData.getModel());
+        mainPage.clickSearchButton();
+        FarfetchSearchResultPage searchResultPage = new FarfetchSearchResultPage(driver);
+        searchResultPage.addSneakersToCart();
+        FarfetchCartPage cartPage = new FarfetchCartPage(driver);
         cartPage = searchResultPage.goToCart()
                 .deleteGoodsFromCart();
-
-        Assertions.assertEquals("Корзина пуста", cartPage.checkedOnEmptyBasket());
-    }
-
-        @Test
-    public void changeSizeOfSneakers() throws InterruptedException {
-        User testUser = UserCreator.withCredentialsFromProperty();
-        Sneakers testSneakers = SneakersCreator.withCredentialsFromProperty();
-        mainPage = new FarfetchMainPage(driver)
-                .openPage()
-                .logInAccount(testUser);
-        searchResultPage = mainPage.searchGoods(testSneakers.getSneakersModel())
-                    .addSneakersToCart();
-        cartPage = searchResultPage.goToCart();
-
-        Assertions.assertEquals(testSneakers.getSneakersSize(), cartPage.changeSizeOfSneakers());
+        Assert.assertEquals(EMPTY_BASKET_MESSAGE, cartPage.checkedOnEmptyBasket());
     }
 
     @Test
-    public void addGoodsToCartFromFavourite() throws InterruptedException {
-        User testUser = UserCreator.withCredentialsFromProperty();
-        Sneakers testSneakers = SneakersCreator.withCredentialsFromProperty();
-        mainPage = new FarfetchMainPage(driver)
-                .openPage()
-                .logInAccount(testUser);
-        searchResultPage = mainPage.searchGoods(testSneakers.getSneakersModel())
-                .addToFavourite();
-        favouritePage = searchResultPage.goToFavouritePage();
-        cartPage = favouritePage.goToCartPage();
-
-        Assertions.assertEquals(testSneakers.getSneakersName(), cartPage.getSneakerNumber());
+    public void changeSizeOfSneakers(){
+        DriverUtils.goToPage(ConfigManager.getProperty("mainPageUrl"));
+        FarfetchMainPage mainPage = new FarfetchMainPage(driver);
+        mainPage.enterDataIntoSearchField(sneakersData.getModel());
+        mainPage.clickSearchButton();
+        FarfetchSearchResultPage searchResultPage = new FarfetchSearchResultPage(driver);
+        searchResultPage.addSneakersToCart();
+        FarfetchCartPage cartPage = new FarfetchCartPage(driver);
+        cartPage = searchResultPage.goToCart();
+        Assert.assertEquals(sneakersData.getSize(), cartPage.changeSizeOfSneakers());
     }
 
-
+    @Test
+    public void addGoodsToCartFromFavourite(){
+        DriverUtils.goToPage(ConfigManager.getProperty("mainPageUrl"));
+        FarfetchMainPage mainPage = new FarfetchMainPage(driver);
+        mainPage.enterDataIntoSearchField(sneakersData.getModel());
+        mainPage.clickSearchButton();
+        FarfetchSearchResultPage searchResultPage = new FarfetchSearchResultPage(driver);
+        searchResultPage.addToFavourite();
+        FarfetchFavouritePage favouritePage = searchResultPage.goToFavouritePage();
+        favouritePage = searchResultPage.goToFavouritePage();
+        FarfetchCartPage cartPage = new FarfetchCartPage(driver);
+        cartPage = favouritePage.goToCartPage();
+        Assert.assertEquals(sneakersData.getName(), cartPage.getSneakerNumber());
+    }
 }

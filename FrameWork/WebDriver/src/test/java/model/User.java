@@ -1,27 +1,22 @@
 package model;
 
+import lombok.*;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
     private String email;
     private String password;
     private String username;
 
-
-    public User(String email, String password, String username){
-        this.email = email;
-        this.password = password;
-        this.username = username;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getEmail(){
-        return email;
+    @Override
+    public String toString() {
+        return "User{" +
+                "email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", username='" + username + '\'' +
+                '}';
     }
 }
